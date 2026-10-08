@@ -363,3 +363,6 @@ body #maturity-timeline:before{content:none;display:none}
  body .deposits-table td:nth-child(9) .field-value{color:#276ecc;font-weight:700}
  body .deposits-table tr[hidden]{display:none!important}
 }
+
+/* Smaller detail icons on mobile. */
+@media(max-width:700px){.mobile-field-label .icon{width:11px;height:11px}.mobile-field-label{gap:5px}}
