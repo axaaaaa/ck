@@ -1,12 +1,13 @@
 const records=REAL_DEPOSITS,$=id=>document.getElementById(id),money=n=>n.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
 const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const days=s=>Math.ceil((Date.parse(s)-Date.parse(today))/86400000),total=records.reduce((s,r)=>s+r.amount,0);
+const termInterest=records.reduce((sum,r)=>sum+(r.maturityInterest??r.amount*r.rate*3),0);
+if($('daily-interest'))$('daily-interest').textContent='¥ '+money(termInterest/3/365);
+if($('monthly-interest'))$('monthly-interest').textContent='¥ '+money(termInterest/36);
 const banks=new Map();for(const r of records)banks.set(r.bank,(banks.get(r.bank)||0)+r.amount);
 const make=(tag,txt,cls)=>{const e=document.createElement(tag);e.textContent=txt;if(cls)e.className=cls;return e;};
 function fill(id,text){const e=$(id);if(e){e.replaceChildren(make('p',text,'subtle'));}}
-for(const id of ['trend-chart'])fill(id,'三年期年利率 1.25%–2.35%；存入日期待补充，暂不绘制按日期收益趋势。');
 for(const id of ['weighted-rate'])if($(id))$(id).textContent=(records.reduce((sum,r)=>sum+r.amount*r.rate,0)/total*100).toFixed(2)+'%';
-for(const e of document.querySelectorAll('.chart-tab'))e.disabled=true;
 const soon=records.filter(r=>r.maturity&&days(r.maturity)>=0&&days(r.maturity)<=30);
 if($('overview-soon'))$('overview-soon').textContent=soon.length+' 笔';
 fill('reminder-summary',`${soon.length} 笔近期到期 · ${records.filter(r=>!r.maturity).length} 笔到期日待补充`);
@@ -22,4 +23,4 @@ if($('reset-filters'))$('reset-filters').onclick=()=>{for(const e of document.qu
 const sort=$('filter-sort');if(sort)sort.onchange=()=>{const order=records.map((r,i)=>({r,i}));order.sort((a,b)=>sort.value==='amount-desc'?b.r.amount-a.r.amount:sort.value==='amount-asc'?a.r.amount-b.r.amount:sort.value==='bank'?a.r.bank.localeCompare(b.r.bank):sort.value==='maturity'?(a.r.maturity||'9999').localeCompare(b.r.maturity||'9999'):a.i-b.i);for(const x of order)rows[x.i].parentNode.append(rows[x.i]);};
 for(const b of document.querySelectorAll('.records-tab')){if(b.dataset.view!=='records')b.disabled=true;}
 filter();
-const toggle=$('toggle-balance');if(toggle){let hidden=false;const amounts=[...document.querySelectorAll('.metric-value')].slice(0,3).concat(rows.map(r=>r.children[2]));const originals=amounts.map(e=>e.textContent);toggle.onclick=()=>{hidden=!hidden;amounts.forEach((e,i)=>e.textContent=hidden?'••••••':originals[i]);toggle.setAttribute('aria-pressed',String(hidden));toggle.setAttribute('aria-label',hidden?'显示金额':'隐藏金额');};}
+const toggle=$('toggle-balance');if(toggle){let hidden=false;const amounts=[...document.querySelectorAll('.metric-value')].slice(0,3).concat([$ ('daily-interest'),$('monthly-interest')].filter(Boolean),rows.map(r=>r.children[2]));const originals=amounts.map(e=>e.textContent);toggle.onclick=()=>{hidden=!hidden;amounts.forEach((e,i)=>e.textContent=hidden?'••••••':originals[i]);toggle.setAttribute('aria-pressed',String(hidden));toggle.setAttribute('aria-label',hidden?'显示金额':'隐藏金额');};}
