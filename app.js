@@ -20,7 +20,6 @@ if($('reset-filters'))$('reset-filters').onclick=()=>{for(const e of document.qu
 const sort=$('filter-sort');if(sort)sort.onchange=()=>{const order=records.map((r,i)=>({r,i}));order.sort((a,b)=>sort.value==='amount-desc'?b.r.amount-a.r.amount:sort.value==='amount-asc'?a.r.amount-b.r.amount:sort.value==='bank'?a.r.bank.localeCompare(b.r.bank):sort.value==='maturity'?(a.r.maturity||'9999').localeCompare(b.r.maturity||'9999'):a.i-b.i);for(const x of order)rows[x.i].parentNode.append(rows[x.i]);};
 for(const b of document.querySelectorAll('.records-tab')){if(b.dataset.view!=='records')b.disabled=true;}
 filter();
-const toggle=$('toggle-balance');if(toggle){let hidden=false;const amounts=[...document.querySelectorAll('.metric-value')].slice(0,3).concat([$ ('daily-interest'),$('monthly-interest')].filter(Boolean),rows.map(r=>r.children[2].querySelector(".field-value")||r.children[2]));const originals=amounts.map(e=>e.textContent);toggle.onclick=()=>{hidden=!hidden;amounts.forEach((e,i)=>e.textContent=hidden?'••••••':originals[i]);toggle.setAttribute('aria-pressed',String(hidden));toggle.setAttribute('aria-label',hidden?'显示金额':'隐藏金额');};}
 
 // Linear maturity track: chronological milestones, unknown dates listed separately.
 const trackRoot=$('maturity-timeline');
