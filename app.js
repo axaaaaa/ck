@@ -10,8 +10,6 @@ function fill(id,text){const e=$(id);if(e){e.replaceChildren(make('p',text,'subt
 for(const id of ['weighted-rate'])if($(id))$(id).textContent=(records.reduce((sum,r)=>sum+r.amount*r.rate,0)/total*100).toFixed(2)+'%';
 const soon=records.filter(r=>r.maturity&&days(r.maturity)>=0&&days(r.maturity)<=30);
 if($('overview-soon'))$('overview-soon').textContent=soon.length+' 笔';
-fill('reminder-summary',`${soon.length} 笔近期到期 · ${records.filter(r=>!r.maturity).length} 笔到期日待补充`);
-fill('reminders-list',records.filter(r=>r.maturity).map(r=>`${r.bank} ${money(r.amount)} 元 · ${r.maturity} 到期`).join('；'));
 if($('maturity-count'))$('maturity-count').textContent=records.filter(r=>r.maturity).length+' 笔日期已知';
 const legend=$('bank-legend');if(legend){legend.replaceChildren();for(const [bank,amount]of banks)legend.append(make('p',`${bank} · ¥ ${money(amount)} · ${(amount/total*100).toFixed(1)}%`));}
 const donut=$('bank-donut');if(donut){let cumulative=0;const colors=["#268fff","#1dc5a0","#ffa263"];donut.style.background="conic-gradient("+[...banks.values()].map((amount,i)=>{const start=cumulative;cumulative+=amount/total*100;return `${colors[i%colors.length]} ${start}% ${cumulative}%`;}).join(",")+")";const center=donut.querySelector('.donut-center');if(center)center.textContent='¥ '+money(total);}
