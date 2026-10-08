@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>存款账本 · 资产看板</title>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231682ff'/%3E%3Cpath d='M6 12L16 5l10 7H6zm3 3v8m7-8v8m7-8v8M6 26h20' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E" rel="icon"/>
+
+
+<link href="styles.css" rel="stylesheet"/><script defer="" src="data.js"></script><script defer="" src="app.js"></script></head>
+<body class="page-deposits">
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M6 6l2 2m8 8 2 2M6 18l2-2m8-8 2-2"></path><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"></path></symbol>
+<symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 9h18L12 3 3 9Zm2 3v6m5-6v6m4-6v6m5-6v6M3 21h18M3 18h18"></path></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-8 9 8M5 9v12h5v-7h4v7h5V9"></path></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5zM14 3v6h5M9 13h6m-6 4h4"></path></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20h18M5 17v-4m5 4V9m5 8v-6m5 6V5M4 9l6-5 5 3 6-5"></path></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M5 17h14l-2-4V9a5 5 0 0 0-10 0v4l-2 4ZM10 21h4M12 2v2"></path></symbol>
+<symbol id="i-pie" viewBox="0 0 24 24"><path d="M11 3a9 9 0 1 0 10 10H11V3Zm4 0v6h6a8 8 0 0 0-6-6Z"></path></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5l8-3Z"></path><path d="m8 11 3 3 5-6"></path></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4 5h16v16H4zM8 2v6m8-6v6M4 10h16m-12 4h1m6 0h1m-8 3h1m6 0h1"></path></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-10m-6 0h6v6"></path></symbol>
+<symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"></ellipse><path d="M4 6v6c0 4 16 4 16 0V6M4 11v6c0 4 16 4 16 0v-6"></path></symbol>
+<symbol id="i-money" viewBox="0 0 24 24"><path d="M9 3h6l-2 5h-2L9 3Zm-2 9c-5 9 15 13 14 3-1-3-5-7-7-7h-4l-3 4Z"></path><path d="M14 12h-3v3h3v3h-3m1-7v8"></path></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"></circle><path d="m15 15 6 6"></path></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M4 21v-2a8 8 0 0 1 16 0v2Z"></path></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"></path></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="m15 4 5 5-11 11H4v-5L15 4Zm-2 2 5 5"></path></symbol>
+<symbol id="i-delete" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"></path></symbol>
+<symbol id="i-percent" viewBox="0 0 24 24"><path d="M4 20 20 4"></path><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6m-6 3h6M8 15a7 7 0 1 1 8 0l-1 3H9l-1-3ZM12 1v1M2 6l2 1m16 0 2-1M1 13h2m18 0h2"></path></symbol>
+</defs></svg>
+<div class="dashboard-shell">
+<div class="dashboard-layout">
+<aside class="sidebar"><nav aria-label="看板导航" class="side-nav">
+<a class="side-link active" href="#overview"><svg aria-hidden="true" class="icon"><use href="#i-home"></use></svg>总览</a>
+<a class="side-link" href="#records"><svg aria-hidden="true" class="icon"><use href="#i-file"></use></svg>存款记录</a>
+<a class="side-link" href="#analysis"><svg aria-hidden="true" class="icon"><use href="#i-chart"></use></svg>图表分析</a>
+<a class="side-link" href="#reminders-panel"><svg aria-hidden="true" class="icon"><use href="#i-bell"></use></svg>到期提醒<span class="badge" hidden="" id="side-reminders"></span></a>
+
+</nav></aside>
+<main class="dashboard-main">
+<h1 class="sr-only">存款账本资产看板</h1>
+<section class="overview-heading" id="overview"><div><h2>我的资产总览</h2><p>示例数据 · 存款展示面板</p></div><button aria-label="隐藏金额" aria-pressed="false" class="visibility-btn" id="toggle-balance" type="button"><svg aria-hidden="true" class="icon"><use href="#i-eye"></use></svg></button><span data-amount="0.0" hidden="" id="hero-balance"><span>0.0</span></span></section>
+<p class="scope-note">总资产与到期收益包含全部记录；当前利息仅计算有效存款，已到期和未存入记录不计入当前每日利息。</p>
+<div class="stats-grid">
+<div class="metric"><span class="metric-icon blue"><svg aria-hidden="true" class="icon"><use href="#i-bank"></use></svg></span><div><div class="metric-label">存款本金</div><div class="metric-value">¥ 1,024,101.00</div><div class="metric-note">共 4 笔存款</div></div></div>
+<div class="metric"><span class="metric-icon green"><svg aria-hidden="true" class="icon"><use href="#i-trend"></use></svg></span><div><div class="metric-label">预计到期利息</div><div class="metric-value">¥ 44,325.00</div><div class="metric-note">加权年化 <em id="weighted-rate">—</em></div></div></div>
+<div class="metric"><span class="metric-icon blue"><svg aria-hidden="true" class="icon"><use href="#i-coins"></use></svg></span><div><div class="metric-label">到期本息合计</div><div class="metric-value">¥ 1,068,426.00</div><div class="metric-note">本金 + 预计到期利息</div></div></div>
+<div class="metric"><span class="metric-icon purple"><svg aria-hidden="true" class="icon"><use href="#i-calendar"></use></svg></span><div><div class="metric-label">近期到期</div><div class="metric-value" id="overview-soon">—</div><div class="metric-note">未来 30 天内</div></div></div>
+</div>
+<section class="table-container" id="records"><div class="records-toolbar"><div class="records-tabs"><button aria-pressed="true" class="records-tab active" data-view="records" type="button"><svg aria-hidden="true" class="icon"><use href="#i-bank"></use></svg>存款明细</button></div></div>
+<div class="record-filters" id="record-filters">
+<label>银行<select aria-label="筛选银行" id="filter-bank"><option value="">全部银行</option><option value="建设银行">建设银行</option><option value="工商银行">工商银行</option><option value="农业银行">农业银行</option></select></label>
+<label>状态<select aria-label="筛选状态" id="filter-status"><option value="all">全部状态</option><option value="active">存款中</option><option value="matured">已到期</option><option value="future">待存入</option><option value="soon">即将到期</option></select></label>
+<label>排序<select aria-label="记录排序" id="filter-sort"><option value="original">默认顺序</option><option value="maturity">到期日升序</option><option value="amount-desc">金额从高到低</option><option value="amount-asc">金额从低到高</option><option value="rate-desc">利率从高到低</option><option value="bank">按银行名称</option></select></label>
+<details class="more-filters"><summary>更多筛选</summary><div class="date-filters"><label>到期起始<input aria-label="到期起始日期" id="filter-start" type="date"/></label>
+<label>到期结束<input aria-label="到期结束日期" id="filter-end" type="date"/></label>
+</div></details><div class="filter-actions"><button class="quiet-btn" id="reset-filters" type="button">重置</button></div>
+</div><p class="form-error" hidden="" id="filter-error" role="alert"></p>
+<div id="records-view"><div class="table-scroll"><table class="deposits-table"><thead><tr><th>#</th><th>存款银行</th><th>存款金额</th><th>存款期限</th><th>年化利率</th><th>存入日期</th><th>到期日期</th><th>预计利息</th><th title="本金 + 预计到期利息，实际到账以银行结算为准">到期本息合计</th><th>未来30天</th><th>当前每日</th><th>状态</th></tr></thead><tbody><tr data-index="0"><td>1</td><td>建设银行</td><td>60,000.00</td><td>三年</td><td>2.35%</td><td>待补充</td><td>2027-04-19</td><td>4,230.00</td><td>64,230.00</td><td>待补充</td><td>待补充</td><td>存款中</td></tr><tr data-index="1"><td>2</td><td>工商银行</td><td>350,000.00</td><td>三年</td><td>1.25%</td><td>待补充</td><td>待补充</td><td>13,125.00</td><td>363,125.00</td><td>待补充</td><td>待补充</td><td>到期待确认</td></tr><tr data-index="2"><td>3</td><td>建设银行</td><td>454,101.00</td><td>三年</td><td>1.25%</td><td>待补充</td><td>2028-10-15</td><td>20,970.00</td><td>475,071.00</td><td>待补充</td><td>待补充</td><td>存款中</td></tr><tr data-index="3"><td>4</td><td>农业银行</td><td>160,000.00</td><td>三年</td><td>1.25%</td><td>待补充</td><td>待补充</td><td>6,000.00</td><td>166,000.00</td><td>待补充</td><td>待补充</td><td>到期待确认</td></tr></tbody></table></div><p class="search-empty" hidden="" id="search-empty">没有匹配的记录，请尝试其他关键词。</p><span aria-live="polite" class="subtle" id="record-count"></span>
+</div><div class="banks-view" hidden="" id="banks-view"><p class="subtle">银行汇总包含全部记录，点击银行可查看对应存款。</p><div class="bank-summary" id="bank-summary"></div></div>
+</section>
+<div class="analysis-primary" id="analysis"><section class="panel trend-panel"><div class="panel-heading"><h2><svg aria-hidden="true" class="icon"><use href="#i-chart"></use></svg>利息收益趋势</h2><div aria-label="切换收益趋势" class="chart-tabs" role="group"><button aria-pressed="true" class="chart-tab active" data-trend="monthly" type="button">每月利息</button><button aria-pressed="false" class="chart-tab" data-trend="total" type="button">累计利息</button></div></div><p class="trend-caption">单位：元</p><svg aria-label="未来十二个月的预计利息趋势" class="trend-chart" id="trend-chart" role="img" viewBox="0 0 460 210"></svg><div class="chart-tooltip" hidden="" id="chart-tooltip" role="status"></div><p class="trend-footnote">从今天起估算未来 12 个月利息，当月仅含剩余天数，到期停止计息；非实际到账记录。</p></section><section class="panel reminders-panel" id="reminders-panel"><div class="panel-heading"><h2><svg aria-hidden="true" class="icon"><use href="#i-bell"></use></svg>到期提醒中心</h2></div><div class="reminder-summary" id="reminder-summary"></div><div class="reminders-list" id="reminders-list"></div><p class="subtle">提醒在打开账本时计算；页面关闭时不会发送系统、邮件或短信通知。</p></section></div><div class="chart-grid secondary-analysis"><section class="panel" id="distribution-panel"><div class="panel-heading"><h2><svg aria-hidden="true" class="icon"><use href="#i-shield"></use></svg>存款金额分布</h2><span class="subtle">按存款银行</span></div><div class="distribution"><div aria-label="各银行存款金额占比" class="donut" id="bank-donut" role="img"><div class="donut-center">¥ 0<small>总存款</small></div></div><div class="legend" id="bank-legend"></div></div></section><section class="panel" id="timeline-panel"><div class="panel-heading"><h2><svg aria-hidden="true" class="icon"><use href="#i-calendar"></use></svg>存款到期时间线</h2><span class="subtle" id="maturity-count"></span></div><div class="timeline" id="maturity-timeline"></div></section></div>
+<div class="bottom-grid">
+<section class="panel" id="summary-panel"><div class="panel-heading"><h2><svg aria-hidden="true" class="icon"><use href="#i-chart"></use></svg>收益统计</h2></div><div class="summary-grid"><div class="summary-tile"><svg aria-hidden="true" class="icon"><use href="#i-percent"></use></svg><div><span>加权平均利率</span><b id="summary-average">—</b></div></div><div class="summary-tile"><svg aria-hidden="true" class="icon"><use href="#i-trend"></use></svg><div><span>最高利率</span><b id="highest-rate">—</b></div></div><div class="summary-tile"><svg aria-hidden="true" class="icon"><use href="#i-trend"></use></svg><div><span>最低利率</span><b id="lowest-rate">—</b></div></div><div class="summary-tile"><svg aria-hidden="true" class="icon"><use href="#i-coins"></use></svg><div><span>预计总收益</span><b>¥ 0.00</b></div></div></div></section>
+<section class="panel structure"><div class="panel-heading"><h2><svg aria-hidden="true" class="icon"><use href="#i-pie"></use></svg>资金结构</h2></div><div class="distribution"><div aria-label="存款期限金额占比" class="donut" id="term-donut" role="img"><div class="donut-center">¥ 0<small>总存款</small></div></div><div class="legend" id="term-legend"></div></div></section>
+</div>
+<details class="extra-analysis"><summary>银行利率对比</summary><section class="panel" id="rates-panel"><div class="panel-heading"><h2><svg aria-hidden="true" class="icon"><use href="#i-bank"></use></svg>银行利率对比</h2><a class="subtle" href="#records">查看明细 ›</a></div><div class="rate-list" id="rate-list"></div><div class="rate-footnote">加权平均利率 <strong id="rate-average">—</strong></div></section></details>
+<p class="subtle">测算口径：建行 454,101 元的到期本息按用户指定 475,071 元计（利息 20,970 元），其余记录为三年期测算。建行 6 万元按用户指定年利率 2.35%，其余按 2026-10-09 核验的挂牌年利率 1.25% 计算，本金 × 年利率 × 3；不是原存单合同收益。挂牌表执行日期为 2025-05-20。未提供日期的记录不计算近期收益。</p></main></div></div>
+<!-- 编辑模态框 -->
+
+<!-- 删除模态框 -->
+
+
+</body>
+</html>
