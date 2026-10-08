@@ -12,7 +12,6 @@ const soon=records.filter(r=>r.maturity&&days(r.maturity)>=0&&days(r.maturity)<=
 if($('overview-soon'))$('overview-soon').textContent=soon.length+' 笔';
 fill('reminder-summary',`${soon.length} 笔近期到期 · ${records.filter(r=>!r.maturity).length} 笔到期日待补充`);
 fill('reminders-list',records.filter(r=>r.maturity).map(r=>`${r.bank} ${money(r.amount)} 元 · ${r.maturity} 到期`).join('；'));
-fill('maturity-timeline',records.filter(r=>r.maturity).sort((a,b)=>a.maturity.localeCompare(b.maturity)).map(r=>`${r.maturity} · ${r.bank} · ¥ ${money(r.amount)}`).join('；')+'；其余两笔到期日待补充');
 if($('maturity-count'))$('maturity-count').textContent=records.filter(r=>r.maturity).length+' 笔日期已知';
 const legend=$('bank-legend');if(legend){legend.replaceChildren();for(const [bank,amount]of banks)legend.append(make('p',`${bank} · ¥ ${money(amount)} · ${(amount/total*100).toFixed(1)}%`));}
 const donut=$('bank-donut');if(donut){let cumulative=0;const colors=["#268fff","#1dc5a0","#ffa263"];donut.style.background="conic-gradient("+[...banks.values()].map((amount,i)=>{const start=cumulative;cumulative+=amount/total*100;return `${colors[i%colors.length]} ${start}% ${cumulative}%`;}).join(",")+")";const center=donut.querySelector('.donut-center');if(center)center.textContent='¥ '+money(total);}
@@ -24,3 +23,12 @@ const sort=$('filter-sort');if(sort)sort.onchange=()=>{const order=records.map((
 for(const b of document.querySelectorAll('.records-tab')){if(b.dataset.view!=='records')b.disabled=true;}
 filter();
 const toggle=$('toggle-balance');if(toggle){let hidden=false;const amounts=[...document.querySelectorAll('.metric-value')].slice(0,3).concat([$ ('daily-interest'),$('monthly-interest')].filter(Boolean),rows.map(r=>r.children[2]));const originals=amounts.map(e=>e.textContent);toggle.onclick=()=>{hidden=!hidden;amounts.forEach((e,i)=>e.textContent=hidden?'••••••':originals[i]);toggle.setAttribute('aria-pressed',String(hidden));toggle.setAttribute('aria-label',hidden?'显示金额':'隐藏金额');};}
+
+// Linear maturity track: chronological milestones, unknown dates listed separately.
+const trackRoot=$('maturity-timeline');
+if(trackRoot){
+ trackRoot.replaceChildren();const track=make('ol','','linear-track');track.setAttribute('aria-label','按日期排序的到期时间线');
+ const milestones=[{date:today,title:'今天',amount:null},...records.filter(r=>r.maturity).map(r=>({date:r.maturity,title:r.bank,amount:r.amount}))].sort((a,b)=>a.date.localeCompare(b.date));
+ for(const item of milestones){const node=make('li','','linear-node');if(item.amount===null)node.classList.add('is-today');const dot=make('span','','linear-dot');dot.setAttribute('aria-hidden','true');const time=make('time',item.date,'linear-date');time.dateTime=item.date;node.append(dot,time,make('strong',item.title,'linear-title'));if(item.amount!==null){node.append(make('span','¥ '+money(item.amount),'linear-amount'));const remaining=days(item.date);node.append(make('span',remaining<0?'已到期':remaining===0?'今天到期':remaining+' 天后到期','linear-caption'));}else node.append(make('span','当前日期','linear-caption'));track.append(node);}
+ trackRoot.append(track);const unknown=records.filter(r=>!r.maturity);if(unknown.length)trackRoot.append(make('p',unknown.length+' 笔到期日待补充：'+unknown.map(r=>r.bank+' ¥ '+money(r.amount)).join(' · '),'linear-pending'));
+}
