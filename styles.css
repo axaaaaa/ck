@@ -340,3 +340,26 @@ body #maturity-timeline:before{content:none;display:none}
 #maturity-timeline .linear-date,#maturity-timeline .linear-amount{display:block;position:static;white-space:normal;overflow-wrap:anywhere;margin:0}
 #maturity-timeline .linear-pending{width:100%;box-sizing:border-box;line-height:1.9;overflow-wrap:anywhere;clear:both}
 @media(max-width:600px){#maturity-timeline .linear-track{display:block;margin:0 0 14px}#maturity-timeline .linear-node{padding:0 0 24px 30px;gap:6px}#maturity-timeline .linear-node:before{top:8px;bottom:0;left:7px;right:auto;width:2px;height:auto;background:#dce9fb}#maturity-timeline .linear-dot{top:4px}#maturity-timeline .linear-node:last-child{padding-bottom:8px}}
+
+/* Accessible mobile detail labels with inline SVG icons. */
+.mobile-field-label{display:none}.field-value{font-variant-numeric:tabular-nums}
+@media(max-width:700px){
+ body .table-scroll{overflow:visible}
+ body .deposits-table{display:block;width:100%;min-width:0!important}
+ body .deposits-table thead{display:none}
+ body .deposits-table tbody{display:flex;flex-direction:column;gap:14px;width:100%}
+ body .deposits-table tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px;border:1px solid #e4ecf8;border-radius:16px;padding:18px;background:#fff;width:100%;box-sizing:border-box}
+ body .deposits-table tbody tr td{display:flex;flex-direction:column;align-items:flex-start;padding:0!important;border:0;min-width:0;gap:7px;white-space:normal}
+ body .deposits-table tbody tr td:before{display:none!important}
+ body .deposits-table tbody tr td:nth-child(4){display:flex!important}
+ body .deposits-table tbody tr td:nth-child(2){grid-column:1/-1;padding:0 0 12px!important;border-bottom:1px solid #edf2f8;flex-direction:row;align-items:center;gap:12px;font-size:15px}
+ body .deposits-table tbody tr td:nth-child(9){grid-column:1/-1;background:#f3f7fe;padding:12px!important;border-radius:10px}
+ body .deposits-table tbody tr td:last-child{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between}
+ .mobile-field-label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#8395af;line-height:1.5}
+ .mobile-field-label .icon{width:14px;height:14px;color:#6b92c6;flex-shrink:0}
+ body .deposits-table .field-value{font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+ body .deposits-table td:nth-child(3) .field-value{font-size:18px;font-weight:750;color:#226dcc}
+ body .deposits-table td:nth-child(8) .field-value{color:#218779;font-weight:650}
+ body .deposits-table td:nth-child(9) .field-value{color:#276ecc;font-weight:700}
+ body .deposits-table tr[hidden]{display:none!important}
+}
