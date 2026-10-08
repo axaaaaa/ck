@@ -4,9 +4,8 @@ const days=s=>Math.ceil((Date.parse(s)-Date.parse(today))/86400000),total=record
 const banks=new Map();for(const r of records)banks.set(r.bank,(banks.get(r.bank)||0)+r.amount);
 const make=(tag,txt,cls)=>{const e=document.createElement(tag);e.textContent=txt;if(cls)e.className=cls;return e;};
 function fill(id,text){const e=$(id);if(e){e.replaceChildren(make('p',text,'subtle'));}}
-for(const id of ['trend-chart','rate-list'])fill(id,'三年期年利率 1.25%–2.35%；存入日期待补充，暂不绘制按日期收益趋势。');
-for(const id of ['weighted-rate','rate-average','summary-average'])if($(id))$(id).textContent=(records.reduce((sum,r)=>sum+r.amount*r.rate,0)/total*100).toFixed(2)+'%';
-fill('rate-list','建设银行 2.35%（6万元） / 1.25%（454101元，仅参考；到期本息按指定金额） · 工商银行 1.25% · 农业银行 1.25%');
+for(const id of ['trend-chart'])fill(id,'三年期年利率 1.25%–2.35%；存入日期待补充，暂不绘制按日期收益趋势。');
+for(const id of ['weighted-rate'])if($(id))$(id).textContent=(records.reduce((sum,r)=>sum+r.amount*r.rate,0)/total*100).toFixed(2)+'%';
 for(const e of document.querySelectorAll('.chart-tab'))e.disabled=true;
 const soon=records.filter(r=>r.maturity&&days(r.maturity)>=0&&days(r.maturity)<=30);
 if($('overview-soon'))$('overview-soon').textContent=soon.length+' 笔';
