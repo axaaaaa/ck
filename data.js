@@ -12,8 +12,8 @@ const REAL_DEPOSITS = [
   {
     "bank": "工商银行",
     "amount": 350000,
-    "maturity": null,
-    "date": null,
+    "maturity": "2029-10-09",
+    "date": "2026-10-09",
     "period": "三年",
     "rate": 0.0125,
     "rateBasis": "三年期整存整取挂牌利率，仅用于展示测算",
@@ -39,8 +39,8 @@ const REAL_DEPOSITS = [
   {
     "bank": "农业银行",
     "amount": 160000,
-    "maturity": null,
-    "date": null,
+    "maturity": "2029-10-09",
+    "date": "2026-10-09",
     "period": "三年",
     "rate": 0.0125,
     "rateBasis": "三年期整存整取挂牌利率，仅用于展示测算",
